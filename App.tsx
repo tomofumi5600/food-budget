@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-// --- スタイル定義 ---
 const containerStyle: React.CSSProperties = {
   minHeight: '100vh',
   backgroundColor: '#F8F9FA',
@@ -10,7 +9,7 @@ const containerStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center'
-};
+}
 const cardStyle: React.CSSProperties = {
   backgroundColor: 'white',
   padding: '30px',
@@ -19,7 +18,7 @@ const cardStyle: React.CSSProperties = {
   width: '100%',
   maxWidth: '400px',
   textAlign: 'center'
-};
+}
 const buttonStyle: React.CSSProperties = {
   backgroundColor: '#10b981',
   color: 'white',
@@ -31,11 +30,10 @@ const buttonStyle: React.CSSProperties = {
   marginTop: '20px',
   cursor: 'pointer',
   boxShadow: '0 10px 15px -3px rgba(16, 185, 129, 0.3)'
-};
+}
 
-// --- メインアプリ ---
-export default function App() {
-  const [count, setCount] = useState(0);
+function App() {
+  const [count, setCount] = useState(0)
   return (
     <div style={containerStyle}>
       <header style={{ marginBottom: '40px', textAlign: 'center' }}>
@@ -50,4 +48,5 @@ export default function App() {
           ¥10,000
         </h2>
         <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-          <p style
+          <p style={{ fontSize: '14px', marginBottom: '4px' }}>動作テスト: {count}</p>
+          <div style={{ width: '100%', backgroundColor: '#eee', height: '8px', borderRadius: '4px' }}
