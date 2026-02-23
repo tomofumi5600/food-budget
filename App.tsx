@@ -57,7 +57,7 @@ return(
 {total===0&&<p style={{color:'#aaa',fontSize:'14px',textAlign:'center'}}>まだ支出がありません</p>}
 </div>
 <button style={s.btn('#10b981')} onClick={()=>fileRef.current?.click()}>📷 レシートを読み込む</button>
-<input ref={fileRef} type="file" accept="image/*" capture="environment" style={{display:'none'}} onChange={e=>{const f=e.target.files?.[0];if(f)scanReceipt(f)}}/>
+<input ref={fileRef} type="file" accept="image/*" style={{display:'none'}} onChange={e=>{const f=e.target.files?.[0];if(f)scanReceipt(f)}}/>
 {scanning&&<p style={{textAlign:'center',color:'#888',marginTop:'12px'}}>{scanMsg}</p>}
 <button style={s.btn('#6366f1')} onClick={()=>setScreen('add')}>＋ 手入力で追加</button>
 <button style={s.btn('#94a3b8')} onClick={()=>setScreen('history')}>📋 履歴を見る</button>
