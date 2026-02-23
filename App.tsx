@@ -31,6 +31,7 @@ const base64=String(e.target?.result).split(',')[1]
 try{
 const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'このレシート画像から店名・合計金額・カテゴリ(肉・魚/野菜/パン/その他)をJSONで返して。例:{"name":"イオン","amount":2500,"category":"その他"}'},{inlineData:{mimeType:file.type,data:base64}}]}]})})
 const json=await res.json()
+  alert(JSON.stringify(json).slice(0,200))
 const text=json.candidates[0].content.parts[0].text
 const match=text.match(/\{.*\}/s)
 if(match){const data=JSON.parse(match[0]);setName(data.name||'');setAmount(String(data.amount||''));setCategory(data.category||CATEGORIES[0]);setScreen('add')}
