@@ -34,7 +34,7 @@ const text=json.candidates[0].content.parts[0].text
 const match=text.match(/\{.*\}/s)
 if(match){const data=JSON.parse(match[0]);setName(data.name||'');setAmount(String(data.amount||''));setCategory(data.category||CATEGORIES[0]);setScreen('add')}
 else{setScanMsg('読み取れませんでした')}
-}catch(err){setScanMsg('エラーが発生しました')}
+}catch(err){setScanMsg('エラー:'+String(err))}
 setScanning(false)}
 reader.readAsDataURL(file)}
   const s={btn:(c:string)=>({backgroundColor:c,color:c==='#e5e7eb'?'#333':'white',padding:'14px',borderRadius:'12px',border:'none',width:'100%',fontSize:'16px',fontWeight:'bold',cursor:'pointer',marginTop:'8px'}),input:{width:'100%',padding:'12px',borderRadius:'12px',border:'1px solid #e5e7eb',fontSize:'16px',marginTop:'8px',boxSizing:'border-box'as const}}
