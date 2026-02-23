@@ -3,6 +3,7 @@ import React,{useState,useRef}from 'react'
 const CATEGORIES=['肉・魚','野菜','パン','その他']
 const COLORS=['#f87171','#34d399','#fbbf24','#94a3b8']
 const API_KEY=import.meta.env.VITE_GEMINI_API_KEY
+if(!API_KEY){alert('APIキーが取得できていません')}
 function App(){
 const[budget,setBudget]=useState(15000)
 const[expenses,setExpenses]=useState<{id:number,name:string,amount:number,category:string,date:string}[]>([])
