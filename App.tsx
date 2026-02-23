@@ -20,24 +20,25 @@ const cardStyle: React.CSSProperties = {
   maxWidth: '400px',
 };
 
-// --- メインアプリ ---
 export default function App() {
-  // 予算を保存する場所（スマホのメモリに保存するようにします）
-  const [budget, setBudget] = useState(() => {
-    const saved = localStorage.getItem('my_budget');
-    return saved ? parseInt(saved) : 10000; // 保存がなければ10,000円
-  });
-  
+  // 安全に初期値を読み込む工夫
+  const [budget, setBudget] = useState(10000);
   const [isEditing, setIsEditing] = useState(false);
-  const [tempBudget, setTempBudget] = useState(budget);
+  const [tempBudget, setTempBudget] = useState(10000);
 
-  // 予算が変更されたらスマホに保存する
+  // 画面が開いた時に一度だけ保存された数字を読み込む
   useEffect(() => {
-    localStorage.setItem('my_budget', budget.toString());
-  }, [budget]);
+    const saved = localStorage.getItem('my_budget');
+    if (saved) {
+      const num = parseInt(saved);
+      setBudget(num);
+      setTempBudget(num);
+    }
+  }, []);
 
   const handleSave = () => {
     setBudget(tempBudget);
+    localStorage.setItem('my_budget', tempBudget.toString());
     setIsEditing(false);
   };
 
@@ -51,13 +52,12 @@ export default function App() {
 
       <main style={cardStyle}>
         {isEditing ? (
-          // 設定モード
           <div style={{ textAlign: 'center' }}>
             <p style={{ fontWeight: 'bold', marginBottom: '15px' }}>週の予算を設定</p>
             <input 
               type="number" 
               value={tempBudget} 
-              onChange={(e) => setTempBudget(parseInt(e.target.value))}
+              onChange={(e) => setTempBudget(parseInt(e.target.value) || 0)}
               style={{ fontSize: '24px', width: '80%', padding: '10px', borderRadius: '10px', border: '1px solid #ddd', textAlign: 'center' }}
             />
             <button 
@@ -68,9 +68,8 @@ export default function App() {
             </button>
           </div>
         ) : (
-          // 表示モード
           <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: '14px', color: '#888', marginBottom: '8px' }}>今週の残り予算</p>
+            <p style={{ fontSize: '14px', color: '#888', marginBottom: '8px' }}>今週の予算</p>
             <h2 style={{ fontSize: '32px', fontWeight: 'bold', color: '#10b981', marginBottom: '20px' }}>
               ¥{budget.toLocaleString()}
             </h2>
@@ -84,15 +83,13 @@ export default function App() {
 
             <hr style={{ margin: '30px 0', border: 'none', borderTop: '1px solid #eee' }} />
             
-            <button style={{ backgroundColor: '#10b981', color: 'white', padding: '16px 32px', borderRadius: '50px', border: 'none', fontWeight: 'bold', fontSize: '18px', cursor: 'not-allowed', opacity: 0.6, width: '100%' }}>
-              📷 レシート読み込み(準備中)
-            </button>
+            <p style={{ fontSize: '12px', color: '#999' }}>次はグラフとレシート機能を追加します！</p>
           </div>
         )}
       </main>
 
       <footer style={{ marginTop: '40px', fontSize: '12px', color: '#AAA' }}>
-        v1.1.0 - Budget Settings
+        v1.1.1 - Safe Mode
       </footer>
     </div>
   );
