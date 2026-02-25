@@ -29,7 +29,7 @@ const reader=new FileReader()
 reader.onload=async(e)=>{
 const base64=String(e.target?.result).split(',')[1]
 try{
-const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'このレシート画像を解析してください。店名・合計金額・カテゴリをJSONで返してください。カテゴリは以下のルールで判断: 肉・魚=精肉・鮮魚売場の商品、野菜=野菜・果物、パン=パン・ベーカリー商品、その他=それ以外。必ずこの形式のみ返すこと: {"name":"店名","amount":合計金額の数字,"category":"肉・魚 or 野菜 or パン or その他"}'},{inlineData:{mimeType:file.type,data:base64}}]}]})})
+const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro-exp-03-25:generateContent?key=${API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:'このレシート画像を解析してください。店名・合計金額・カテゴリをJSONで返してください。カテゴリは以下のルールで判断: 肉・魚=精肉・鮮魚売場の商品、野菜=野菜・果物、パン=パン・ベーカリー商品、その他=それ以外。必ずこの形式のみ返すこと: {"name":"店名","amount":合計金額の数字,"category":"肉・魚 or 野菜 or パン or その他"}'},{inlineData:{mimeType:file.type,data:base64}}]}]})})
 const json=await res.json()
   alert(JSON.stringify(json).slice(0,200))
 const text=json.candidates[0].content.parts[0].text
